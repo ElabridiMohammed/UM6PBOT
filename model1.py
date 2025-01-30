@@ -63,11 +63,19 @@ def load_vector_store():
     )
 
 class PDFChatbot:
-    def __init__(self):
-        self.client = OpenAI(
-            api_key=os.getenv("DEEPSEEK_API_KEY"),
-            base_url="https://api.deepseek.com"
-        )
+    def __init__(self, model_choice: str):
+        self.model_choice = model_choice
+        # Configurer le client en fonction du modèle choisi
+        if model_choice == "DeepSeek":
+            self.client = OpenAI(
+                api_key=os.getenv("DEEPSEEK_API_KEY"),
+                base_url="https://api.deepseek.com"
+            )
+        else:  # GPT-4o
+            self.client = OpenAI(
+                api_key=os.getenv("OPENAI_API_KEY")
+            )
+        
         self.vector_store = load_vector_store()
         self.chat_history = []
 
@@ -194,8 +202,11 @@ class PDFChatbot:
         messages.append({"role": "user", "content": user_query})
 
         try:
+            # Choisir le modèle approprié
+            model_name = "deepseek-chat" if self.model_choice == "DeepSeek" else "gpt-4o"
+            
             stream = self.client.chat.completions.create(
-                model="deepseek-chat",
+                model=model_name,
                 messages=messages,
                 temperature=0.7,
                 max_tokens=2000,
@@ -220,6 +231,15 @@ class PDFChatbot:
 def main():
     st.set_page_config(page_title="UM6P Chatbot", page_icon="🎓")
     
+    # Ajouter la sélection de modèle dans la sidebar
+    with st.sidebar:
+        st.header("Paramètres")
+        model_choice = st.selectbox(
+            "Choix du modèle",
+            ("DeepSeek", "GPT-4o"),
+            index=0
+        )
+
     st.markdown("""
     <style>
         .streaming {
@@ -245,8 +265,11 @@ def main():
     st.title("🎓 Assistant UM6P")
     st.caption("Posez vos questions sur les programmes et écoles de l'UM6P")
 
-    if 'chatbot' not in st.session_state:
-        st.session_state.chatbot = PDFChatbot()
+    # Réinitialiser le chatbot si le modèle change
+    if 'chatbot' not in st.session_state or st.session_state.current_model != model_choice:
+        st.session_state.chatbot = PDFChatbot(model_choice=model_choice)
+        st.session_state.current_model = model_choice
+        st.session_state.chatbot.chat_history = []
 
     if not st.session_state.chatbot.vector_store:
         st.warning("Configuration requise :")
