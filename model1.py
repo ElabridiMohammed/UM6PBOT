@@ -143,6 +143,25 @@ class PDFChatbot:
             - Contact : 
                 📧 admissionISSBP@um6p.ma | 📞 +212 669 936 049 | 🌐 um6p.ma/en/institute-biological-sciences
 
+            10. 10. *FGSES (Faculty of Governance, Economics and Social Sciences)* :
+            - Programmes : 
+                Programmes Post-Bac :
+                * Licence en économie Appliquée 
+                * Licence en Science Politique
+                * Licence en Sciences Comportementales pour
+                les Politiques Publiques
+                * Licence en Relations Internationales
+                Programmes Master :
+                * Master Behavioral and Social Sciences for
+                Public Policy 
+                * Master Global Affairs
+                * Master Political Science
+                * Master Analyse Economique et Politiques
+                Publiques 
+                * Master Economie Quantitative
+            - Contact : 
+                📧 Info.fgses@um6p.ma | 📞 +212 (0) 530 431 217 | 🌐 www.fgses-um6p.ma    
+
             **Directives Strictes** :
             1. **Identification de l'École** :
             - Vérifie TOUJOURS le nom exact de l'école dans la question (ex: "EMINES", "CC", "SAP+D").
