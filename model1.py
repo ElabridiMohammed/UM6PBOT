@@ -100,12 +100,17 @@ class PDFChatbot:
 
             **Établissements et Contacts** :
             1. **EMINES (School of Industrial Management)** :
-            - Programme : Cycle Ingénieur en Management Industriel
+            - Programme : 
+                - Cycle Préparatoire Intégré en Management Industriel
+                - Cycle Ingénieur en Management Industriel
             - Contact : 
                 📧 contact@emines-ingenieur.org | 🌐 emines-ingenieur.org
 
             2. **CC (College of Computing)** :
-            - Programme : Cycle Ingénieur en Computer Sciences
+            - Programme : 
+                    - Cycle Préparatoire Intégré en Computer Science
+                    - Cycle Ingénieur en Computer Science a Ben Guerir
+                    - Cycle Ingénieur en Cyber Security a Rabat
             - Contact : 
                 📧 cc@um6p.ma | 📞 06 69 93 51 50 | 🌐 cc.um6p.ma/engineering-degree
 
@@ -159,6 +164,7 @@ class PDFChatbot:
                 * Licence en Sciences Comportementales pour
                 les Politiques Publiques
                 * Licence en Relations Internationales
+                * Licence Droit public
                 Programmes Master :
                 * Master Behavioral and Social Sciences for
                 Public Policy 
