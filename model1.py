@@ -216,7 +216,6 @@ class PDFChatbot:
                     temperature=0.7,
                     max_tokens=2000,
                     stream=True,
-                    extra_headers=extra_headers
                 )
             else:  # GPT-4
                 stream = self.client.chat.completions.create(
