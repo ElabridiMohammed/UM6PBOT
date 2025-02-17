@@ -68,8 +68,8 @@ class PDFChatbot:
         # Configurer le client en fonction du modèle choisi
         if model_choice == "DeepSeek":
             self.client = OpenAI(
-                api_key=os.getenv("DEEPSEEK_API_KEY"),
-                base_url="https://api.deepseek.com"
+                base_url="https://openrouter.ai/api/v1",
+                api_key=os.getenv("OPENROUTER_API_KEY"),
             )
         else:  # GPT-4o
             self.client = OpenAI(
@@ -208,16 +208,24 @@ class PDFChatbot:
         messages.append({"role": "user", "content": user_query})
 
         try:
-            # Choisir le modèle approprié
-            model_name = "deepseek-chat" if self.model_choice == "DeepSeek" else "gpt-4o"
-            
-            stream = self.client.chat.completions.create(
-                model=model_name,
-                messages=messages,
-                temperature=0.7,
-                max_tokens=2000,
-                stream=True
-            )
+            # Choose appropriate model and configuration
+            if self.model_choice == "DeepSeek":
+                stream = self.client.chat.completions.create(
+                    model="deepseek/deepseek-chat:free",
+                    messages=messages,
+                    temperature=0.7,
+                    max_tokens=2000,
+                    stream=True,
+                    extra_headers=extra_headers
+                )
+            else:  # GPT-4
+                stream = self.client.chat.completions.create(
+                    model="gpt-4",
+                    messages=messages,
+                    temperature=0.7,
+                    max_tokens=2000,
+                    stream=True
+                )
 
             full_response = []
             for chunk in stream:
