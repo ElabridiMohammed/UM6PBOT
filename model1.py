@@ -68,8 +68,8 @@ class PDFChatbot:
         # Configurer le client en fonction du modèle choisi
         if model_choice == "DeepSeek":
             self.client = OpenAI(
-                api_key=os.getenv("DEEPSEEK_API_KEY"),
-                base_url="https://api.deepseek.com"
+                api_key=os.getenv("FIREWORKS_API_KEY"),  # Changement de clé API
+                base_url="https://api.fireworks.ai/inference/v1"
             )
         else:  # GPT-4o
             self.client = OpenAI(
@@ -209,7 +209,7 @@ class PDFChatbot:
 
         try:
             # Choisir le modèle approprié
-            model_name = "deepseek-chat" if self.model_choice == "DeepSeek" else "gpt-4o"
+            model_name = "accounts/fireworks/models/deepseek-v3" if self.model_choice == "DeepSeek" else "gpt-4o"
             
             stream = self.client.chat.completions.create(
                 model=model_name,
