@@ -100,13 +100,16 @@ class PDFChatbot:
 
             **Établissements et Contacts** :
             1. **EMINES (School of Industrial Management)** :
+            - Date de création : 2013
             - Programme : 
                 - Cycle Préparatoire Intégré en Management Industriel a Ben Guerir (Date limite de candidature : 1 juin 2025)
                 - Cycle Ingénieur en Management Industriel a Ben Guerir (Date limite de candidature : 15 mai 2025)
             - Contact : 
                 📧 contact@emines-ingenieur.org | 🌐 emines-ingenieur.org
+                
 
             2. **CC (College of Computing)** :
+            - Date de création : 2020
             - Programme : 
                     - Cycle Préparatoire Intégré en Computer Science a Ben Guerir (Date limite de candidature : 20 juin 2025)
                     - Cycle Ingénieur en Computer Science a Ben Guerir (Date limite de candidature : 20 avril 2025)
@@ -115,6 +118,7 @@ class PDFChatbot:
                 📧 cc@um6p.ma | 📞 06 69 93 51 50 | 🌐 cc.um6p.ma/engineering-degree
 
             3. **GTI (Green Tech Institute)** :
+            - Date de création : 2020
             - Programme : 
                 - Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents a Ben Guerir(📧 Master.RESMA@um6p.ma) (Date limite de candidature : 15 avril 2025)
                 - Master Technologies Industrielles pour l’Usine du Futur a Ben Guerir(📧 master.TIUF@um6p.ma) (Date limite de candidature : 15 avril 2025)
@@ -127,6 +131,7 @@ class PDFChatbot:
                 📧 admission@um6p.ma | 📞 +212 525 073 308 | 🌐 um6p.ma/fr/institute-science-technology-innovation
 
             5. **SAP+D (School of Architecture)** :
+            - Date de création : 2019
             - Programme : 
                 - Cycle Architecte a Ben Guerir (Bac+6) (Date limite de candidature : 20 juin 2025)
                 - Master Ingénierie des Bâtiments Verts et Efficacité Energétique a Ben Guerir (Date limite de candidature : 15 avril 2025)
@@ -134,6 +139,7 @@ class PDFChatbot:
                 📧 contactsapd@um6p.ma | 📞 06 69 93 51 50 | 🌐 um6p.ma/fr/sapd-school-architecture-planning-design
 
             6. **ABS (Africa Business School)** :
+            - Date de création : 2016
             - Programmes : 
                 - Master AgriBusiness Innovation a Rabat(Date limite de candidature : 15 avril 2025)
                 - Master Financial Engineering a Rabat(Date limite de candidature : 15 avril 2025)
@@ -142,21 +148,25 @@ class PDFChatbot:
                 📧 ali.assmirasse@um6p.ma | 📞 +212 659 46 59 79 | 🌐 abs.um6p.ma
 
             7. **SHBM (School of Hospitality)** :
+            - Date de création : 2020
             - Programme : Bachelor in Hospitality Business & Management a Ben Guerir(Date limite de candidature : 21 avril 2025)
             - Contact : 
                 📧 admissions.shbm@um6p.mah | 📞 +212 6 62 10 47 63 | 🌐 www.shbm-um6p.ma
 
             8. **FMS (Faculty of Medical Sciences)** :
+            - Date de création : 2022
             - Programmes : Doctorat en Médecine, Doctorat en Pharmacie a Ben Guerir(Date limite de candidature : 20 juin 2025)
             - Contact : 
                 📧 admission-fms@um6p.ma | 📞 +212 525-073051 / +212 665-693326 | 🌐 um6p.ma/fr/faculty-medical-sciences-0
 
             9. **ISSB-P (Institut Supérieur des Sciences Biologiques et Paramédicales)** :
+            - Date de création : 2021
             - Programmes : Licence Soins infirmiers, option infirmier polyvalent a Ben Guerir(Date limite de candidature : 20 juin 2025)
             - Contact : 
                 📧 admissionISSBP@um6p.ma | 📞 +212 669 936 049 | 🌐 um6p.ma/en/institute-biological-sciences
 
             10. 10. *FGSES (Faculty of Governance, Economics and Social Sciences)* :
+            - Date de création : 2014
             - Programmes : 
                 Programmes Post-Bac :
                 * Licence en économie Appliquée a Rabat(Date limite de candidature : 15 mars 2025)
