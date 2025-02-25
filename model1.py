@@ -101,78 +101,78 @@ class PDFChatbot:
             **Établissements et Contacts** :
             1. **EMINES (School of Industrial Management)** :
             - Programme : 
-                - Cycle Préparatoire Intégré en Management Industriel
-                - Cycle Ingénieur en Management Industriel
+                - Cycle Préparatoire Intégré en Management Industriel (Date limite de candidature : 1 juin 2025)
+                - Cycle Ingénieur en Management Industriel (Date limite de candidature : 15 mai 2025)
             - Contact : 
                 📧 contact@emines-ingenieur.org | 🌐 emines-ingenieur.org
 
             2. **CC (College of Computing)** :
             - Programme : 
-                    - Cycle Préparatoire Intégré en Computer Science
-                    - Cycle Ingénieur en Computer Science a Ben Guerir
-                    - Cycle Ingénieur en Cyber Security a Rabat
+                    - Cycle Préparatoire Intégré en Computer Science (Date limite de candidature : 20 juin 2025)
+                    - Cycle Ingénieur en Computer Science a Ben Guerir (Date limite de candidature : 20 avril 2025)
+                    - Cycle Ingénieur en Cyber Security a Rabat (Date limite de candidature : 20 avril 2025)
             - Contact : 
                 📧 cc@um6p.ma | 📞 06 69 93 51 50 | 🌐 cc.um6p.ma/engineering-degree
 
             3. **GTI (Green Tech Institute)** :
             - Programme : 
-                - Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents (📧 Master.RESMA@um6p.ma) 
-                - Master Technologies Industrielles pour l’Usine du Futur (📧 master.TIUF@um6p.ma)
+                - Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents (📧 Master.RESMA@um6p.ma) (Date limite de candidature : 15 avril 2025)
+                - Master Technologies Industrielles pour l’Usine du Futur (📧 master.TIUF@um6p.ma) (Date limite de candidature : 15 avril 2025)
             - Contact :
                 📧  admission@um6p.ma | 📞 +212 525 073 308 | 🌐 um6p.ma/index.php/fr/green-tech-institute
 
             4. **SoCheMiB-IST&I** :
-            - Programme : Cycle Ingénieur en Génie Chimique, Minéralogique et Biotechnologique
+            - Programme : Cycle Ingénieur en Génie Chimique, Minéralogique et Biotechnologique (Date limite de candidature : 20 juin 2025)
             - Contact : 
                 📧 admission@um6p.ma | 📞 +212 525 073 308 | 🌐 um6p.ma/fr/institute-science-technology-innovation
 
             5. **SAP+D (School of Architecture)** :
             - Programme : 
-                - Cycle Architecte (Bac+6)
-                - Master Ingénierie des Bâtiments Verts et Efficacité Energétique 
+                - Cycle Architecte (Bac+6) (Date limite de candidature : 20 juin 2025)
+                - Master Ingénierie des Bâtiments Verts et Efficacité Energétique (Date limite de candidature : 15 avril 2025)
             - Contact : 
                 📧 contactsapd@um6p.ma | 📞 06 69 93 51 50 | 🌐 um6p.ma/fr/sapd-school-architecture-planning-design
 
             6. **ABS (Africa Business School)** :
             - Programmes : 
-                - Master AgriBusiness Innovation
-                - Master Financial Engineering
-                - Master International Management
+                - Master AgriBusiness Innovation (Date limite de candidature : 15 avril 2025)
+                - Master Financial Engineering (Date limite de candidature : 15 avril 2025)
+                - Master International Management (Date limite de candidature : 15 avril 2025)
             - Contact : 
                 📧 ali.assmirasse@um6p.ma | 📞 +212 659 46 59 79 | 🌐 abs.um6p.ma
 
             7. **SHBM (School of Hospitality)** :
-            - Programme : Bachelor in Hospitality Business & Management
+            - Programme : Bachelor in Hospitality Business & Management (Date limite de candidature : 21 avril 2025)
             - Contact : 
                 📧 admissions.shbm@um6p.mah | 📞 +212 6 62 10 47 63 | 🌐 www.shbm-um6p.ma
 
             8. **FMS (Faculty of Medical Sciences)** :
-            - Programmes : Doctorat en Médecine, Doctorat en Pharmacie
+            - Programmes : Doctorat en Médecine, Doctorat en Pharmacie (Date limite de candidature : 20 juin 2025)
             - Contact : 
                 📧 admission-fms@um6p.ma | 📞 +212 525-073051 / +212 665-693326 | 🌐 um6p.ma/fr/faculty-medical-sciences-0
 
             9. **ISSB-P (Institut Supérieur des Sciences Biologiques et Paramédicales)** :
-            - Programmes : Licence Soins infirmiers, option infirmier polyvalent 
+            - Programmes : Licence Soins infirmiers, option infirmier polyvalent (Date limite de candidature : 20 juin 2025)
             - Contact : 
                 📧 admissionISSBP@um6p.ma | 📞 +212 669 936 049 | 🌐 um6p.ma/en/institute-biological-sciences
 
             10. 10. *FGSES (Faculty of Governance, Economics and Social Sciences)* :
             - Programmes : 
                 Programmes Post-Bac :
-                * Licence en économie Appliquée 
-                * Licence en Science Politique
+                * Licence en économie Appliquée (Date limite de candidature : 15 mars 2025)
+                * Licence en Science Politique (Date limite de candidature : 15 mars 2025)
                 * Licence en Sciences Comportementales pour
-                les Politiques Publiques
-                * Licence en Relations Internationales
-                * Licence Droit public
+                les Politiques Publiques (Date limite de candidature : 15 mars 2025)
+                * Licence en Relations Internationales (Date limite de candidature : 15 mars 2025)
+                * Licence Droit public (Date limite de candidature : 15 mars 2025)
                 Programmes Master :
                 * Master Behavioral and Social Sciences for
-                Public Policy 
-                * Master Global Affairs
-                * Master Political Science
+                Public Policy (Date limite de candidature : 31 mars 2025)
+                * Master Global Affairs (Date limite de candidature : 31 mars 2025)
+                * Master Political Science (Date limite de candidature : 31 mars 2025)
                 * Master Analyse Economique et Politiques
-                Publiques 
-                * Master Economie Quantitative
+                Publiques (Date limite de candidature : 31 mars 2025)
+                * Master Economie Quantitative (Date limite de candidature : 31 mars 2025)
             - Contact : 
                 📧 Info.fgses@um6p.ma | 📞 +212 (0) 530 431 217 | 🌐 www.fgses-um6p.ma    
 
