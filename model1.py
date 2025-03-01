@@ -1,56 +1,140 @@
-import os
-from typing import List, Dict, Generator
 from dotenv import load_dotenv
-from pypdf import PdfReader
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain.embeddings import OpenAIEmbeddings
-import streamlit as st
+import os
 from openai import OpenAI
+from pypdf import PdfReader
+from typing import Generator
+import streamlit as st
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
 
-# Load environment variables first
+# Chargement des variables d'environnement
 load_dotenv()
+
+class InteractiveClarifier:
+    def __init__(self):
+        self.client = OpenAI(
+            api_key=os.getenv("FIREWORKS_API_KEY"),
+            base_url="https://api.fireworks.ai/inference/v1"
+        )
+        self.context = []
+
+    def clarify_question(self, user_query: str) -> str:
+        """Clarifie la question utilisateur"""
+        clarification_prompt = [
+            {
+                "role": "system",
+                "content": f"""
+                Corrige les noms d'écoles UM6P et ajoute le nom correct de l'école et la formation si la question est imcomplète.
+
+                **Établissements et Contacts** :
+            1. **EMINES (School of Industrial Management)** :
+            - Programme : 
+                - Cycle Préparatoire Intégré en Management Industriel 
+                - Cycle Ingénieur en Management Industriel 
+           
+            2. **CC (College of Computing)** :
+            - Programme : 
+                    - Cycle Préparatoire Intégré en Computer Science 
+                    - Cycle Ingénieur en Computer Science 
+                    - Cycle Ingénieur en Cyber Security 
+
+            3. **GTI (Green Tech Institute)** :
+            - Programme : 
+                - Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents(📧 Master.RESMA@um6p.ma) 
+                - Master Technologies Industrielles pour l’Usine du Futur (📧 master.TIUF@um6p.ma) 
+          
+            4. **SoCheMiB-IST&I** :
+            - Programme : Cycle Ingénieur en Génie Chimique, Minéralogique et Biotechnologique 
+        
+            5. **SAP+D (School of Architecture)** :
+            - Programme : 
+                - Cycle Architecte a Ben Guerir (Bac+6) 
+                - Master Ingénierie des Bâtiments Verts et Efficacité Energétique 
+
+            6. **ABS (Africa Business School)** :
+            - Programmes : 
+                - Master AgriBusiness Innovation 
+                - Master Financial Engineering 
+                - Master International Management 
+
+            7. **SHBM (School of Hospitality)** :
+            - Programme : Bachelor in Hospitality Business & Management 
+            
+            8. **FMS (Faculty of Medical Sciences)** :
+            - Programmes : Doctorat en Médecine, Doctorat en Pharmacie 
+            
+            9. **ISSB-P (Institut Supérieur des Sciences Biologiques et Paramédicales)** :
+            - Programmes : Licence Soins infirmiers, option infirmier polyvalent 
+ 
+            10. *FGSES (Faculty of Governance, Economics and Social Sciences)* :
+            - Programmes : 
+                Programmes Post-Bac :
+                    * Licence en économie Appliquée 
+                    * Licence en Science Politique 
+                    * Licence en Sciences Comportementales pour les Politiques Publiques 
+                    * Licence en Relations Internationales 
+                    * Licence Droit public
+                Programmes Master :
+                    * Master Behavioral and Social Sciences for Public Policy 
+                    * Master Global Affairs 
+                    * Master Political Science  
+                    * Master Analyse Economique et Politiques Publiques 
+                    * Master Economie Quantitative 
+
+                Contexte précédent: {self.context[-1] if self.context else "Aucun"}
+                
+                        **Règles Strictes** :
+                            1. Reformuler la question de l'uilisateur en :
+                                - Corrigeant les noms d'écoles
+                                - Ajoutant le nom de l'école correct si la question est incomplète en utilisant les noms d'écoles ci-dessus et le contexte precedent
+                                - Ajoutant le nom du programme si necessaire
+                                - Gardant la structure originale de la question de l'utilisateur
+                                - Ne pas inventer d'informations
+                                - Ne reformuler pas si la question est déjà claire
+                                - Traiter CHAQUE question de manière indépendante
+                                - Ne jamais combiner avec des questions précédentes
+                            2. Ne jamais ajouter de réponse ou d'explication
+                            3. Ne pas ajouter de commentaires
+                    
+
+                """
+            },
+            {"role": "user", "content": user_query}
+        ]
+
+        try:
+            response = self.client.chat.completions.create(
+                model="accounts/fireworks/models/deepseek-v3",
+                messages=clarification_prompt,
+                temperature=0.1,
+                max_tokens=100
+            )
+            clarified = response.choices[0].message.content
+            self.context.append(clarified)
+            return clarified
+        except Exception as e:
+            return user_query
 
 @st.cache_resource
 def load_vector_store():
-    """Charge les PDFs depuis le dossier docs/ et crée le vector store"""
+    """Charge les PDFs et crée le vector store"""
     if not os.path.exists("docs"):
         os.makedirs("docs")
         return None
     
-    pdf_files = [os.path.join("docs", f) for f in os.listdir("docs") if f.endswith(".pdf")]
-    
+    pdf_files = [f for f in os.listdir("docs") if f.endswith(".pdf")]
     if not pdf_files:
         return None
 
     sections = []
-    
-    for pdf_path in pdf_files:
-        school_name = os.path.splitext(os.path.basename(pdf_path))[0].upper()
+    for pdf_file in pdf_files:
+        pdf_path = os.path.join("docs", pdf_file)
+        school_name = os.path.splitext(pdf_file)[0].upper()
         
-        pdf_text = []
         pdf_reader = PdfReader(pdf_path)
-        for page in pdf_reader.pages:
-            if text := page.extract_text():
-                pdf_text.append(text)
+        text = "\n".join([page.extract_text() or "" for page in pdf_reader.pages])
         
-        full_text = '\n'.join(pdf_text)
-        current_section = []
-        
-        for line in full_text.split('\n'):
-            if line.strip().startswith('#'):
-                if current_section:
-                    section = f"[FORMATION: {school_name}]\n" + '\n'.join(current_section)
-                    sections.append(section)
-                    current_section = []
-                current_section.append(line.strip())
-            else:
-                current_section.append(line)
-        
-        if current_section:
-            section = f"[Formation (Ecole): {school_name}]\n" + '\n'.join(current_section)
-            sections.append(section)
+        sections.append(f"[FORMATION: {school_name}]\n{text}")
 
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-large",
@@ -65,27 +149,23 @@ def load_vector_store():
 class PDFChatbot:
     def __init__(self, model_choice: str):
         self.model_choice = model_choice
-        # Configurer le client en fonction du modèle choisi
-        if model_choice == "DeepSeek":
-            self.client = OpenAI(
-                api_key=os.getenv("FIREWORKS_API_KEY"),  # Changement de clé API
-                base_url="https://api.fireworks.ai/inference/v1"
-            )
-        else:  # GPT-4o
-            self.client = OpenAI(
-                api_key=os.getenv("OPENAI_API_KEY")
-            )
-        
+        self.clarifier = InteractiveClarifier()
+        self.client = OpenAI(
+            api_key=os.getenv("FIREWORKS_API_KEY" if model_choice == "DeepSeek" else "OPENAI_API_KEY"),
+            base_url="https://api.fireworks.ai/inference/v1" if model_choice == "DeepSeek" else None
+        )
         self.vector_store = load_vector_store()
         self.chat_history = []
 
     def generate_response(self, user_query: str) -> Generator[str, None, None]:
-        """Generate response with streaming support"""
+        """Génère une réponse avec streaming"""
+        clarified_query = self.clarifier.clarify_question(user_query)
+        
         if not self.vector_store:
-            yield "⚠️ Aucun document détecté. Veuillez :\n1. Créer un dossier 'docs/'\n2. Y placer les fichiers PDF\n3. Recharger l'application"
+            yield "⚠️ Créez un dossier 'docs/' avec des PDFs des formations"
             return
 
-        relevant_docs = self.vector_store.similarity_search(user_query, k=3)
+        relevant_docs = self.vector_store.similarity_search(clarified_query, k=3)
         context = "\n".join([doc.page_content for doc in relevant_docs])
 
         messages = [
@@ -121,7 +201,7 @@ class PDFChatbot:
             - Date de création : 2020
             - Programme : 
                 - Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents a Ben Guerir(📧 Master.RESMA@um6p.ma) (Date limite de candidature : 15 avril 2025)
-                - Master Technologies Industrielles pour l’Usine du Futur a Ben Guerir(📧 master.TIUF@um6p.ma) (Date limite de candidature : 15 avril 2025)
+                - Master Technologies Industrielles pour l'Usine du Futur a Ben Guerir(📧 master.TIUF@um6p.ma) (Date limite de candidature : 15 avril 2025)
             - Contact :
                 📧  admission@um6p.ma | 📞 +212 525 073 308 | 🌐 um6p.ma/index.php/fr/green-tech-institute
 
@@ -165,7 +245,7 @@ class PDFChatbot:
             - Contact : 
                 📧 admissionISSBP@um6p.ma | 📞 +212 669 936 049 | 🌐 um6p.ma/en/institute-biological-sciences
 
-            10. 10. *FGSES (Faculty of Governance, Economics and Social Sciences)* :
+            10. **FGSES (Faculty of Governance, Economics and Social Sciences)** :
             - Date de création : 2014
             - Programmes : 
                 Programmes Post-Bac :
@@ -215,10 +295,9 @@ class PDFChatbot:
             messages.append({"role": "user", "content": msg["user"]})
             messages.append({"role": "assistant", "content": msg["assistant"]})
 
-        messages.append({"role": "user", "content": user_query})
+        messages.append({"role": "user", "content": clarified_query})
 
         try:
-            # Choisir le modèle approprié
             model_name = "accounts/fireworks/models/deepseek-v3" if self.model_choice == "DeepSeek" else "gpt-4o"
             
             stream = self.client.chat.completions.create(
@@ -242,60 +321,35 @@ class PDFChatbot:
             })
 
         except Exception as e:
-            yield f"Erreur de génération de réponse: {str(e)}"
+            yield f"Erreur : {str(e)}"
 
 def main():
     st.set_page_config(page_title="UM6P Chatbot", page_icon="🎓")
     
-    # Ajouter la sélection de modèle dans la sidebar
     with st.sidebar:
         st.header("Paramètres")
-        model_choice = st.selectbox(
-            "Choix du modèle",
-            ("DeepSeek", "GPT-4o"),
-            index=0
-        )
+        model_choice = st.selectbox("Modèle", ("DeepSeek", "GPT-4o"), index=0)
 
     st.markdown("""
     <style>
-        .streaming {
-            background-color: #f0f2f6;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-        .stMarkdown p {
-            font-size: 16px !important;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        .blink-cursor::after {
-            content: "▌";
-            animation: blink 1s step-end infinite;
-            color: #2d3436;
-        }
+    .streaming {background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 10px 0;}
+    @keyframes blink {50% {opacity: 0;}}
+    .blink-cursor::after {content: "▌"; animation: blink 1s step-end infinite;}
     </style>
     """, unsafe_allow_html=True)
 
     st.title("🎓 Assistant UM6P")
-    st.caption("Posez vos questions sur les programmes et écoles de l'UM6P")
+    st.caption("Posez vos questions sur les programmes UM6P")
 
-    # Réinitialiser le chatbot si le modèle change
     if 'chatbot' not in st.session_state or st.session_state.current_model != model_choice:
-        st.session_state.chatbot = PDFChatbot(model_choice=model_choice)
+        st.session_state.chatbot = PDFChatbot(model_choice)
         st.session_state.current_model = model_choice
         st.session_state.chatbot.chat_history = []
 
     if not st.session_state.chatbot.vector_store:
-        st.warning("Configuration requise :")
-        st.markdown("""
-        1. Créer un dossier `docs/`
-        2. Placer les fichiers PDF des formations dedans
-        3. Redémarrer l'application
-        """)
+        st.warning("1. Créez un dossier 'docs/' 2. Ajoutez des PDFs 3. Rechargez")
 
-    user_input = st.chat_input("Écrivez votre question ici...")
+    user_input = st.chat_input("Écrivez votre question...")
     
     for msg in st.session_state.chatbot.chat_history:
         with st.chat_message("user"):
@@ -308,17 +362,14 @@ def main():
             st.write(user_input)
 
         with st.chat_message("assistant"):
-            response_container = st.empty()
+            response = st.empty()
             full_response = ""
             
             for chunk in st.session_state.chatbot.generate_response(user_input):
                 full_response += chunk
-                response_container.markdown(
-                    f'<div class="streaming blink-cursor">{full_response}</div>', 
-                    unsafe_allow_html=True
-                )
+                response.markdown(f'<div class="streaming blink-cursor">{full_response}</div>', unsafe_allow_html=True)
             
-            response_container.markdown(f'<div class="streaming">{full_response}</div>', unsafe_allow_html=True)
+            response.markdown(f'<div class="streaming">{full_response}</div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
