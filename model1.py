@@ -4,7 +4,7 @@ from openai import OpenAI
 from pypdf import PdfReader
 from typing import Generator
 import streamlit as st
-from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
 # Chargement des variables d'environnement
