@@ -339,7 +339,7 @@ class PDFChatbot:
             stream = self.client.chat.completions.create(
                 model=model_name,
                 messages=messages,
-                temperature=0.2,
+                temperature=1,
                 max_tokens=2000,
                 stream=True
             )
