@@ -80,6 +80,20 @@ class InteractiveClarifier:
                     * Master Political Science  
                     * Master Analyse Economique et Politiques Publiques 
                     * Master Economie Quantitative 
+   
+            11. **SASE (School of Applied Sciences and Engineering)** :
+            - Programme : 
+                - Bachelor of Science (B.Sc.) en Applied Sciences and Engineering (4 ans) avec spécialisations :
+                    * Mechanical Engineering
+                    * Electrical Engineering
+                    * Chemical & Material Engineering
+                    * Environmental Engineering
+                    * Applied Mathematics & Business
+            
+            12. **CASE (Cycle Ingénieur en Systèmes Agri-Environnementaux)** :
+            - Programmes :
+                - Cycle Préparatoire Intégré + 
+                - Cycle Ingénieur en Systèmes Agro-Environnementaux (5 ans, Bac+5)
 
                 Contexte précédent: {self.context[-1] if self.context else "Aucun"}
                 
@@ -266,7 +280,29 @@ class PDFChatbot:
             - Contact : 
                 📧 Info.fgses@um6p.ma | 📞 +212 (0) 530 431 217 | 🌐 www.fgses-um6p.ma    
 
+            11. **SASE (School of Applied Sciences and Engineering)** :
+            - Programme : 
+                - Bachelor of Science (B.Sc.) en Applied Sciences and Engineering (4 ans) avec spécialisations a Rabat & Benguerir :(Date limite de candidature : 20 juin 2025)
+                    * Mechanical Engineering
+                    * Electrical Engineering
+                    * Chemical & Material Engineering
+                    * Environmental Engineering
+                    * Applied Mathematics & Business`
+            - Contact : 📧 sase@um6p.ma | 📞 +212 662 32 29 53 | 🌐 sase.um6p.ma
+            
+            12. **ESAFE (Cycle Ingénieur en Systèmes Agri-Environnementaux)** :
+            - Programmes a Benguerir :
+                - Cycle Préparatoire Intégré (Date limite de candidature : 20 juin 2025)
+                - Cycle Ingénieur en Systèmes Agro-Environnementaux
+            - Contact : 
+                📧 esafe@um6p.ma | 📞 +212 662 324983 | 🌐 www.um6p.ma/en/ecole-des-sciences-de-lagriculture-de-la-fertilisation-et-de-lenvironnement-esafe        
+
             **Directives Strictes** :
+            0. **LIMITATION STRICTE**: 
+            - Tu ne peux répondre qu'aux questions concernant l'UM6P.
+            - Pour TOUTE question non liée à l'UM6P, réponds UNIQUEMENT: "Je suis un assistant spécialisé uniquement pour les informations concernant l'UM6P. Je ne peux pas répondre à cette question car elle ne concerne pas l'Université Mohammed VI Polytechnique."
+            - Ne jamais répondre à des questions générales, culturelles ou personnelles (par exemple : musique, célébrités, actualités, politique ...)
+
             1. **Identification de l'École** :
             - Vérifie TOUJOURS le nom exact de l'école dans la question (ex: "EMINES", "CC", "SAP+D").
             - Si la question mentionne un programme (ex: "Ingénieur en Computer Sciences"), associe-le à l'école correspondante (ex: CC).
@@ -303,7 +339,7 @@ class PDFChatbot:
             stream = self.client.chat.completions.create(
                 model=model_name,
                 messages=messages,
-                temperature=0.7,
+                temperature=0.2,
                 max_tokens=2000,
                 stream=True
             )
