@@ -41,7 +41,7 @@ class InteractiveClarifier:
             3. **GTI (Green Tech Institute)** :
             - Programme : 
                 - Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents(📧 Master.RESMA@um6p.ma) 
-                - Master Technologies Industrielles pour l’Usine du Futur (📧 master.TIUF@um6p.ma) 
+                - Master Technologies Industrielles pour l'Usine du Futur (📧 master.TIUF@um6p.ma) 
           
             4. **SoCheMiB-IST&I** :
             - Programme : Cycle Ingénieur en Génie Chimique, Minéralogique et Biotechnologique 
@@ -161,12 +161,12 @@ def load_vector_store():
     )
 
 class PDFChatbot:
-    def __init__(self, model_choice: str):
-        self.model_choice = model_choice
+    def __init__(self, temperature: float = 0.2):
+        self.temperature = temperature
         self.clarifier = InteractiveClarifier()
         self.client = OpenAI(
-            api_key=os.getenv("FIREWORKS_API_KEY" if model_choice == "DeepSeek" else "OPENAI_API_KEY"),
-            base_url="https://api.fireworks.ai/inference/v1" if model_choice == "DeepSeek" else None
+            api_key=os.getenv("FIREWORKS_API_KEY"),
+            base_url="https://api.fireworks.ai/inference/v1"
         )
         self.vector_store = load_vector_store()
         self.chat_history = []
@@ -334,12 +334,12 @@ class PDFChatbot:
         messages.append({"role": "user", "content": clarified_query})
 
         try:
-            model_name = "accounts/fireworks/models/deepseek-v3" if self.model_choice == "DeepSeek" else "gpt-4o"
+            model_name = "accounts/fireworks/models/deepseek-v3"
             
             stream = self.client.chat.completions.create(
                 model=model_name,
                 messages=messages,
-                temperature=0.2,
+                temperature=float(self.temperature),  # Use the temperature parameter
                 max_tokens=2000,
                 stream=True
             )
@@ -359,12 +359,23 @@ class PDFChatbot:
         except Exception as e:
             yield f"Erreur : {str(e)}"
 
+    def update_temperature(self, new_temperature: float):
+        """Met à jour la température pour les futures réponses"""
+        self.temperature = new_temperature
+
 def main():
     st.set_page_config(page_title="UM6P Chatbot", page_icon="🎓")
     
     with st.sidebar:
         st.header("Paramètres")
-        model_choice = st.selectbox("Modèle", ("DeepSeek", "GPT-4o"), index=0)
+        temperature = st.slider(
+            "Température (Créativité)", 
+            min_value=0.0, 
+            max_value=1.0, 
+            value=0.2, 
+            step=0.1,
+            help="Valeurs plus basses pour des réponses plus cohérentes et déterministes, valeurs plus hautes pour plus de créativité"
+        )
 
     st.markdown("""
     <style>
@@ -377,10 +388,15 @@ def main():
     st.title("🎓 Assistant UM6P")
     st.caption("Posez vos questions sur les programmes UM6P")
 
-    if 'chatbot' not in st.session_state or st.session_state.current_model != model_choice:
-        st.session_state.chatbot = PDFChatbot(model_choice)
-        st.session_state.current_model = model_choice
+    if 'chatbot' not in st.session_state:
+        st.session_state.chatbot = PDFChatbot()
+        st.session_state.current_temperature = 0.2
         st.session_state.chatbot.chat_history = []
+
+    # Mettre à jour la température si elle a changé
+    if st.session_state.current_temperature != temperature:
+        st.session_state.chatbot.update_temperature(temperature)
+        st.session_state.current_temperature = temperature
 
     if not st.session_state.chatbot.vector_store:
         st.warning("1. Créez un dossier 'docs/' 2. Ajoutez des PDFs 3. Rechargez")
