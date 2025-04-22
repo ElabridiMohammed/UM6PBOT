@@ -25,8 +25,7 @@ class InteractiveClarifier:
                 "role": "system",
                 "content": f"""
                 Corrige les noms d'écoles UM6P et ajoute le nom correct de l'école et la formation si la question est imcomplète.
-                Tu DOIS traiter la question dans la même langue que celle utilisée par l'utilisateur.
-                Ne traduis pas la question, clarifie-la uniquement dans sa langue d'origine.
+                
 
                 **Établissements et Contacts** :
             1. **EMINES (School of Industrial Management)** :
@@ -111,6 +110,8 @@ class InteractiveClarifier:
                                 - Ne jamais combiner avec des questions précédentes
                             2. Ne jamais ajouter de réponse ou d'explication
                             3. Ne pas ajouter de commentaires
+                            4. Tu DOIS traiter la question dans la même langue que celle utilisée par l'utilisateur.
+                            5. Ne traduis pas la question, clarifie-la uniquement dans sa langue d'origine.
                     
 
                 """
