@@ -24,6 +24,7 @@ class InteractiveClarifier:
             {
                 "role": "system",
                 "content": f"""
+                **Répondre toujours dans la même langue que l'utilisateur**
                 Corrige les noms d'écoles UM6P et ajoute le nom correct de l'école et la formation si la question est imcomplète.
                 
 
@@ -189,6 +190,7 @@ class PDFChatbot:
             {
             "role": "system",
             "content": f"""
+            **Répondre toujours dans la même langue que l'utilisateur**
             **Rôle** : Assistant spécialisé dans les écoles et programmes de l'Université Mohammed VI Polytechnique (UM6P). Réponds dans la même langue que l'utilisateur.
 
             **Contexte UM6P** :
