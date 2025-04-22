@@ -25,6 +25,8 @@ class InteractiveClarifier:
                 "role": "system",
                 "content": f"""
                 Corrige les noms d'écoles UM6P et ajoute le nom correct de l'école et la formation si la question est imcomplète.
+                Tu DOIS traiter la question dans la même langue que celle utilisée par l'utilisateur.
+                Ne traduis pas la question, clarifie-la uniquement dans sa langue d'origine.
 
                 **Établissements et Contacts** :
             1. **EMINES (School of Industrial Management)** :
@@ -313,6 +315,12 @@ class PDFChatbot:
             - Si l'information n'est pas dans le contexte dirigé l'utilisatuer vers le contact de l'école concernée, réponds : "Je ne trouve pas cette information dans ma base de connaissances. Veuillez consulter le site : 🌐 "
             - Si l'école n'est pas claire → Demande : "Veuillez préciser l'école (ex: EMINES, CC, SAP+D)".
             - Toujours donner les contacts officiels de l'école concernée en se basant sur la liste fournie des etablissemtn et contacts.
+            - Tu DOIS répondre dans la même langue que celle utilisée par l'utilisateur
+            - Si l'utilisateur écrit en français, réponds en français
+            - Si l'utilisateur écrit en anglais, réponds en anglais
+            - Si l'utilisateur écrit en arabe, réponds en arabe
+            - Si l'utilisateur écrit dans une autre langue, réponds dans cette même langue
+            
 
             3. **Interdictions** :
             - Aucun mélange d'informations entre écoles (ex: ne pas utiliser les contacts de l'ABS pour une question sur le CC).
