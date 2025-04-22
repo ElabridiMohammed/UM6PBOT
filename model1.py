@@ -319,7 +319,7 @@ class PDFChatbot:
             - Tu DOIS répondre dans la même langue que celle utilisée par l'utilisateur
             - Si l'utilisateur écrit en français, réponds en français
             - Si l'utilisateur écrit en anglais, réponds en anglais
-            - Si l'utilisateur écrit en arabe, réponds en arabe
+            - Si l'utilisateur écrit en darija, réponds en darija
             - Si l'utilisateur écrit dans une autre langue, réponds dans cette même langue
             
 
