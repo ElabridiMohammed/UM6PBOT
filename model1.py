@@ -418,7 +418,7 @@ def main():
     </style>
     """, unsafe_allow_html=True)
 
-    st.title("🤖 Assistant UM6P")
+    st.title("🎓 Assistant UM6P")
     st.caption("Posez vos questions sur les programmes et formations de l'UM6P")
 
     if 'chatbot' not in st.session_state:
