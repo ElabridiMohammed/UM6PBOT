@@ -384,9 +384,9 @@ def main():
     
     # Initialisation des limitations
     if 'limitations' not in st.session_state:
-        st.session_state.limitations = """- RÉPONDRE UNIQUEMENT AUX QUESTIONS SUR L'UM6P
-- POUR TOUTE QUESTION HORS SUJET : "Je suis spécialisé exclusivement sur l'UM6P. Posez-moi une question sur nos programmes ou formations!"
-- INTERDICTION DE DISCUTER DE SUJETS GÉNÉRAUX, CÉLÉBRITÉS OU ACTUALITÉS"""
+        st.session_state.limitations = """ - Tu ne peux répondre qu'aux questions concernant l'UM6P.
+            - Pour TOUTE question non liée à l'UM6P, réponds UNIQUEMENT: "Je suis un assistant spécialisé uniquement pour les informations concernant l'UM6P. Je ne peux pas répondre à cette question car elle ne concerne pas l'Université Mohammed VI Polytechnique."
+            - Ne jamais répondre à des questions générales, culturelles ou personnelles (par exemple : musique, célébrités, actualités, politique ...)"""
 
     with st.sidebar:
         st.header("Configuration")
