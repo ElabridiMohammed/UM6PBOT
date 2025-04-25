@@ -400,17 +400,7 @@ def main():
             help="Modifiez les règles de limitation strictes pour le chatbot (utilisez des tirets pour les listes)"
         )
 
-    
-    with st.sidebar:
-        st.header("Paramètres")
-        temperature = st.slider(
-            "Température (Créativité)", 
-            min_value=0.0, 
-            max_value=1.0, 
-            value=0.2, 
-            step=0.1,
-            help="Valeurs plus basses pour des réponses plus cohérentes et déterministes, valeurs plus hautes pour plus de créativité"
-        )
+
 
     st.markdown("""
     <style>
