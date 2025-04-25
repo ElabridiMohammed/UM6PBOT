@@ -303,10 +303,6 @@ class PDFChatbot:
                 📧 esafe@um6p.ma | 📞 +212 662 324983 | 🌐 www.um6p.ma/en/ecole-des-sciences-de-lagriculture-de-la-fertilisation-et-de-lenvironnement-esafe        
 
             **Directives Strictes** :
-            0. **LIMITATION STRICTE**: 
-            - Tu ne peux répondre qu'aux questions concernant l'UM6P.
-            - Pour TOUTE question non liée à l'UM6P, réponds UNIQUEMENT: "Je suis un assistant spécialisé uniquement pour les informations concernant l'UM6P. Je ne peux pas répondre à cette question car elle ne concerne pas l'Université Mohammed VI Polytechnique."
-            - Ne jamais répondre à des questions générales, culturelles ou personnelles (par exemple : musique, célébrités, actualités, politique ...)
 
             1. **Identification de l'École** :
             - Vérifie TOUJOURS le nom exact de l'école dans la question (ex: "EMINES", "CC", "SAP+D").
