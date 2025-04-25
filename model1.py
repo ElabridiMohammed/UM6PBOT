@@ -174,10 +174,17 @@ class PDFChatbot:
         )
         self.vector_store = load_vector_store()
         self.chat_history = []
+        self.last_limitations = None
+
 
     def generate_response(self, user_query: str) -> Generator[str, None, None]:
         """Génère une réponse avec streaming"""
+        if self.last_limitations != st.session_state.limitations:
+            self.chat_history.clear()
+            self.last_limitations = st.session_state.limitations
+
         clarified_query = self.clarifier.clarify_question(user_query)
+
         
         if not self.vector_store:
             yield "⚠️ Créez un dossier 'docs/' avec des PDFs des formations"
@@ -375,58 +382,57 @@ class PDFChatbot:
 def main():
     st.set_page_config(page_title="UM6P Chatbot", page_icon="🎓")
     
-    # Initialize limitations
+    # Initialisation des limitations
     if 'limitations' not in st.session_state:
-        default_limitations = """- Tu ne peux répondre qu'aux questions concernant l'UM6P.
-- Pour TOUTE question non liée à l'UM6P, réponds UNIQUEMENT: "Je suis un assistant spécialisé uniquement pour les informations concernant l'UM6P. Je ne peux pas répondre à cette question car elle ne concerne pas l'Université Mohammed VI Polytechnique."
-- Ne jamais répondre à des questions générales, culturelles ou personnelles (par exemple : musique, célébrités, actualités, politique ...)"""
-        st.session_state.limitations = default_limitations
+        st.session_state.limitations = """- RÉPONDRE UNIQUEMENT AUX QUESTIONS SUR L'UM6P
+- POUR TOUTE QUESTION HORS SUJET : "Je suis spécialisé exclusivement sur l'UM6P. Posez-moi une question sur nos programmes ou formations!"
+- INTERDICTION DE DISCUTER DE SUJETS GÉNÉRAUX, CÉLÉBRITÉS OU ACTUALITÉS"""
 
     with st.sidebar:
-        st.header("Paramètres")
+        st.header("Configuration")
         temperature = st.slider(
-            "Température (Créativité)", 
-            min_value=0.0, 
-            max_value=1.0, 
-            value=0.2, 
+            "Créativité des réponses",
+            min_value=0.0,
+            max_value=1.0,
+            value=0.2,
             step=0.1,
-            help="Valeurs plus basses pour des réponses plus cohérentes et déterministes, valeurs plus hautes pour plus de créativité"
+            help="0 = Précis, 1 = Créatif"
         )
-        st.text_area(
-            "Limitations Strictes",
+        
+        limitations = st.text_area(
+            "Règles de restriction",
             value=st.session_state.limitations,
-            key="limitations",
             height=200,
-            help="Modifiez les règles de limitation strictes pour le chatbot (utilisez des tirets pour les listes)"
+            help="Une règle par ligne, utiliser des tirets (-)"
         )
-
-
+        
+        if limitations != st.session_state.limitations:
+            st.session_state.limitations = limitations
+            st.rerun()
 
     st.markdown("""
     <style>
-    .streaming {background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 10px 0;}
+    .streaming {background: #f1f3f4; padding: 15px; border-radius: 8px; margin: 10px 0;}
     @keyframes blink {50% {opacity: 0;}}
     .blink-cursor::after {content: "▌"; animation: blink 1s step-end infinite;}
     </style>
     """, unsafe_allow_html=True)
 
-    st.title("🎓 Assistant UM6P")
-    st.caption("Posez vos questions sur les programmes UM6P")
+    st.title("🤖 Assistant UM6P")
+    st.caption("Posez vos questions sur les programmes et formations de l'UM6P")
 
     if 'chatbot' not in st.session_state:
         st.session_state.chatbot = PDFChatbot()
         st.session_state.current_temperature = 0.2
-        st.session_state.chatbot.chat_history = []
 
-    # Mettre à jour la température si elle a changé
     if st.session_state.current_temperature != temperature:
         st.session_state.chatbot.update_temperature(temperature)
         st.session_state.current_temperature = temperature
 
     if not st.session_state.chatbot.vector_store:
-        st.warning("1. Créez un dossier 'docs/' 2. Ajoutez des PDFs 3. Rechargez")
+        st.warning("1. Créez un dossier 'docs/' 2. Ajoutez des PDFs 3. Actualisez la page")
 
-    user_input = st.chat_input("Écrivez votre question...")
+    user_input = st.chat_input("Votre question...")
     
     for msg in st.session_state.chatbot.chat_history:
         with st.chat_message("user"):
