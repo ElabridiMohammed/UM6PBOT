@@ -303,6 +303,8 @@ class PDFChatbot:
                 📧 esafe@um6p.ma | 📞 +212 662 324983 | 🌐 www.um6p.ma/en/ecole-des-sciences-de-lagriculture-de-la-fertilisation-et-de-lenvironnement-esafe        
 
             **Directives Strictes** :
+            0. **LIMITATION STRICTE**: 
+            {st.session_state.limitations}
 
             1. **Identification de l'École** :
             - Vérifie TOUJOURS le nom exact de l'école dans la question (ex: "EMINES", "CC", "SAP+D").
@@ -372,6 +374,32 @@ class PDFChatbot:
 
 def main():
     st.set_page_config(page_title="UM6P Chatbot", page_icon="🎓")
+    
+    # Initialize limitations
+    if 'limitations' not in st.session_state:
+        default_limitations = """- Tu ne peux répondre qu'aux questions concernant l'UM6P.
+- Pour TOUTE question non liée à l'UM6P, réponds UNIQUEMENT: "Je suis un assistant spécialisé uniquement pour les informations concernant l'UM6P. Je ne peux pas répondre à cette question car elle ne concerne pas l'Université Mohammed VI Polytechnique."
+- Ne jamais répondre à des questions générales, culturelles ou personnelles (par exemple : musique, célébrités, actualités, politique ...)"""
+        st.session_state.limitations = default_limitations
+
+    with st.sidebar:
+        st.header("Paramètres")
+        temperature = st.slider(
+            "Température (Créativité)", 
+            min_value=0.0, 
+            max_value=1.0, 
+            value=0.2, 
+            step=0.1,
+            help="Valeurs plus basses pour des réponses plus cohérentes et déterministes, valeurs plus hautes pour plus de créativité"
+        )
+        st.text_area(
+            "Limitations Strictes",
+            value=st.session_state.limitations,
+            key="limitations",
+            height=200,
+            help="Modifiez les règles de limitation strictes pour le chatbot (utilisez des tirets pour les listes)"
+        )
+
     
     with st.sidebar:
         st.header("Paramètres")
