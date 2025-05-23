@@ -53,6 +53,8 @@ class InteractiveClarifier:
                 - Cycle Architecte a Ben Guerir (Bac+6) 
                 - Master Ingénierie des Bâtiments Verts et Efficacité Energétique 
 
+   
+
             6. **ABS (Africa Business School)** :
             - Programmes : 
                 - Master AgriBusiness Innovation 
@@ -96,6 +98,10 @@ class InteractiveClarifier:
             - Programmes :
                 - Cycle Préparatoire Intégré + 
                 - Cycle Ingénieur en Systèmes Agro-Environnementaux (5 ans, Bac+5)
+
+            13. **School of collective intelligence
+            - Programmes : 
+                - Master of collective intelligence
 
                 Contexte précédent: {self.context[-1] if self.context else "Aucun"}
                 
@@ -309,6 +315,14 @@ class PDFChatbot:
             - Contact : 
                 📧 esafe@um6p.ma | 📞 +212 662 324983 | 🌐 www.um6p.ma/en/ecole-des-sciences-de-lagriculture-de-la-fertilisation-et-de-lenvironnement-esafe        
 
+            13. **School of collective intelligence
+            - Programmes : 
+                - Master of collective intelligence (Date limite de candidature : 15 april 2025)
+            - Contact :
+                📧 sci@um6p.ma | https://sci.um6p.ma/
+                
+                
+            
             **Directives Strictes** :
             0. **LIMITATION STRICTE**: 
             {st.session_state.limitations}
