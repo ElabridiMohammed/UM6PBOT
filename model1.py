@@ -14,7 +14,7 @@ class InteractiveClarifier:
     def __init__(self):
         self.client = OpenAI(
             api_key=os.getenv("FIREWORKS_API_KEY"),
-            base_url="ttps://api.fireworks.ai/inference/v1/chat/completions"
+            base_url="https://api.fireworks.ai/inference/v1/chat/completions"
         )
         self.context = []
 
@@ -176,7 +176,7 @@ class PDFChatbot:
         self.clarifier = InteractiveClarifier()
         self.client = OpenAI(
             api_key=os.getenv("FIREWORKS_API_KEY"),
-            base_url="ttps://api.fireworks.ai/inference/v1/chat/completions"
+            base_url="https://api.fireworks.ai/inference/v1/chat/completions"
         )
         self.vector_store = load_vector_store()
         self.chat_history = []
