@@ -14,7 +14,7 @@ class InteractiveClarifier:
     def __init__(self):
         self.client = OpenAI(
             api_key=os.getenv("FIREWORKS_API_KEY"),
-            base_url="https://api.fireworks.ai/inference/v1"
+            base_url="ttps://api.fireworks.ai/inference/v1/chat/completions"
         )
         self.context = []
 
@@ -128,7 +128,7 @@ class InteractiveClarifier:
 
         try:
             response = self.client.chat.completions.create(
-                model="accounts/fireworks/models/deepseek-v3",
+                model="accounts/fireworks/models/deepseek-v3p1",
                 messages=clarification_prompt,
                 temperature=0.1,
                 max_tokens=100
