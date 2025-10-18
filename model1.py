@@ -176,7 +176,7 @@ class PDFChatbot:
         self.clarifier = InteractiveClarifier()
         self.client = OpenAI(
             api_key=os.getenv("FIREWORKS_API_KEY"),
-            base_url="https://api.fireworks.ai/inference/v1"
+            base_url="ttps://api.fireworks.ai/inference/v1/chat/completions"
         )
         self.vector_store = load_vector_store()
         self.chat_history = []
@@ -364,7 +364,7 @@ class PDFChatbot:
         messages.append({"role": "user", "content": clarified_query})
 
         try:
-            model_name = "accounts/fireworks/models/deepseek-v3"
+            model_name = "accounts/fireworks/models/deepseek-v3p1"
             
             stream = self.client.chat.completions.create(
                 model=model_name,
